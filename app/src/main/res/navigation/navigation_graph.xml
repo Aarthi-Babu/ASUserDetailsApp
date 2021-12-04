@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.asuserdetailsapp.view.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_userListViewFragment"
+            app:destination="@id/userListViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userListViewFragment"
+        android:name="com.example.asuserdetailsapp.view.UserListViewFragment"
+        android:label="UserListViewFragment" >
+        <action
+            android:id="@+id/action_userListViewFragment_to_detailViewFragment"
+            app:destination="@id/detailViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailViewFragment"
+        android:name="com.example.asuserdetailsapp.view.DetailViewFragment"
+        android:label="DetailViewFragment">
+    <argument
+        android:name="position"
+        android:defaultValue="0"
+        app:argType="integer" />
+    </fragment>
+</navigation>
