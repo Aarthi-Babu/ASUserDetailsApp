@@ -34,21 +34,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:contentDescription="@string/app_name"
-                android:src="@drawable/ic_launcher_foreground"
+                android:src="@drawable/ic_default_dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/firstName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:textSize="24sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profileImg" />
-
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/detailsLayout2"
@@ -59,93 +48,135 @@
                 android:paddingVertical="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/firstName">
+                app:layout_constraintTop_toBottomOf="@+id/profileImg">
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/gender"
+                    android:id="@+id/firstName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="bio"
+                    android:text="@string/firstname"
+                    app:layout_constraintBottom_toBottomOf="@+id/firstNameVal"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/firstNameVal" />
+
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/firstNameVal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:text="@string/app_name"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/genderVal"
+                    android:id="@+id/lastName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/app_name"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/gender" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/city"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="instaurl"
+                    android:text="@string/lastname"
+                    app:layout_constraintBottom_toBottomOf="@+id/lastNameVal"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/gender" />
+                    app:layout_constraintTop_toTopOf="@+id/lastNameVal" />
 
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/cityVal"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/lastNameVal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@color/white"
                     android:text="@string/app_name"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/city" />
+                    app:layout_constraintTop_toBottomOf="@+id/firstNameVal" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/age"
+                    android:id="@+id/mobileNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="mlmklm"
+                    android:text="@string/mobilenumber"
+                    app:layout_constraintBottom_toBottomOf="@+id/mobileVal"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/city" />
+                    app:layout_constraintTop_toTopOf="@+id/mobileVal" />
 
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/ageVal"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/mobileVal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@color/white"
                     android:text="@string/app_name"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/age" />
+                    app:layout_constraintTop_toBottomOf="@+id/lastNameVal" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/phone"
+                    android:id="@+id/instaUrl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="mobile"
+                    android:text="@string/instaurl"
+                    app:layout_constraintBottom_toBottomOf="@+id/instaUrlVal"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/age" />
+                    app:layout_constraintTop_toTopOf="@+id/instaUrlVal" />
 
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/phoneVal"
-                    android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/instaUrlVal"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:background="@color/white"
                     android:text="@string/app_name"
+                    android:textAlignment="viewEnd"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/phone" />
+                    app:layout_constraintStart_toEndOf="@+id/instaUrl"
+                    app:layout_constraintTop_toBottomOf="@+id/mobileVal" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/email"
+                    android:id="@+id/youTubeUrl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="utube"
+                    android:text="@string/youtubeurl"
+                    app:layout_constraintBottom_toBottomOf="@+id/youTubeUrlVal"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/phone" />
+                    app:layout_constraintTop_toTopOf="@+id/youTubeUrlVal" />
 
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/youTubeUrlVal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:text="@string/app_name"
+                    android:textAlignment="viewEnd"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/youTubeUrl"
+                    app:layout_constraintTop_toBottomOf="@+id/instaUrlVal" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/emailVal"
+                    android:id="@+id/bio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@string/bio"
+                    app:layout_constraintBottom_toBottomOf="@+id/bioVal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/bioVal" />
+
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/bioVal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
                     android:text="@string/app_name"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/email" />
+                    app:layout_constraintTop_toBottomOf="@+id/youTubeUrlVal" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/save"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detailsLayout2" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

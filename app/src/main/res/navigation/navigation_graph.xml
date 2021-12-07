@@ -28,5 +28,8 @@
         android:name="position"
         android:defaultValue="0"
         app:argType="integer" />
+        <action
+            android:id="@+id/action_detailViewFragment_to_userListViewFragment"
+            app:destination="@id/userListViewFragment" />
     </fragment>
 </navigation>

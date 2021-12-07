@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">ASUserDetailsApp</string>
+    <string name="login">Login</string>
+    <string name="please_enter_your_email_id">please enter your email Id</string>
+    <string name="please_enter_your_password">please enter your password</string>
+    <string name="firstname">firstName</string>
+    <string name="lastname">lastName</string>
+    <string name="mobilenumber">mobileNumber</string>
+    <string name="instaurl">instaUrl</string>
+    <string name="youtubeurl">youTubeUrl</string>
+    <string name="bio">bio</string>
+    <string name="save">save</string>
 </resources>

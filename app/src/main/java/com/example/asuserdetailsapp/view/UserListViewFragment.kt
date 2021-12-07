@@ -16,6 +16,7 @@ import com.example.asuserdetailsapp.databinding.FragmentListBinding
 import com.example.asuserdetailsapp.di.AppModule
 import com.example.asuserdetailsapp.utils.ProgressDialog
 import com.example.asuserdetailsapp.utils.Resource
+import com.example.asuserdetailsapp.utils.isNetworkConnected
 import com.example.asuserdetailsapp.viewmodel.UserListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -46,40 +47,42 @@ class UserListViewFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         super.onStart()
         viewModel.authToken?.let {
-            invokeDB("Bearer $it")
-
+            if (context?.isNetworkConnected() == true && viewModel.userDetailsFromDb.value.isNullOrEmpty())
+                invokeDB(
+                    "Bearer $it"
+                )
         }
         recyclerView()
+        loadData()
     }
 
     private fun invokeDB(token: String) {
         val dbHelper =
             context?.let { DateBaseHelperImpl(UserDataBase.DatabaseBuilder.getInstance(it)) }
-        dbHelper?.let {
-            viewModel.getUserDetails(token, it).observe(viewLifecycleOwner) { resource ->
-                when (resource.status) {
-                    Resource.Status.SUCCESS -> {
-                        progressDialog.hideLoading()
-                        Toast.makeText(context, "user api ${resource.data}", Toast.LENGTH_SHORT)
-                            .show()
-                        loadData()
+        viewModel.getUserDetails(token).observe(viewLifecycleOwner) { resource ->
+            when (resource.status) {
+                Resource.Status.SUCCESS -> {
+                    progressDialog.hideLoading()
+                    resource.data?.let {
+                        dbHelper?.let { viewModel.fetchDataFromDb(it, resource.data) }
                     }
-                    Resource.Status.ERROR -> {
-                        progressDialog.hideLoading()
-                        Toast.makeText(context, "user api error.", Toast.LENGTH_SHORT).show()
-                    }
-                    Resource.Status.LOADING -> {
-                        progressDialog.showLoading()
-                    }
+                }
+                Resource.Status.ERROR -> {
+                    progressDialog.hideLoading()
+                    Toast.makeText(context, "user api error.", Toast.LENGTH_SHORT).show()
+                }
+                Resource.Status.LOADING -> {
+                    progressDialog.showLoading()
                 }
             }
         }
+
     }
 
     private fun loadData() {
-        viewModel.userDetailsFromDb.value?.let { list ->
+        viewModel.userDetailsFromDb.observe(viewLifecycleOwner, { list ->
             adapter?.addData(list)
-        }
+        })
     }
 
     private fun recyclerView() {
@@ -92,13 +95,17 @@ class UserListViewFragment : Fragment() {
 
         adapter = ListViewAdapter {
             view?.findNavController()
-                ?.navigate(UserListViewFragmentDirections.actionUserListViewFragmentToDetailViewFragment(it))
+                ?.navigate(
+                    UserListViewFragmentDirections.actionUserListViewFragmentToDetailViewFragment(
+                        it
+                    )
+                )
         }
 
         val animate = TranslateAnimation(
             0F,
             0F,
-            0F,
+            binding.recyclerView.height.toFloat(),
             0F
         ).apply {
             duration = 1000
@@ -106,7 +113,7 @@ class UserListViewFragment : Fragment() {
         }
         binding.recyclerView.adapter = adapter
         binding.recyclerView.startAnimation(animate)
-
+        loadData()
     }
 
 

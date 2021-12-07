@@ -16,7 +16,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UserListViewModel @Inject constructor(private val repo: UserDetailRepository) : ViewModel() {
-    val userDetailsResponse = MutableLiveData<ArrayList<User>>()
     val userDetailsFromDb = MutableLiveData<ArrayList<User>>()
     var authToken: String? = null
     fun getLoginDetails(
@@ -33,47 +32,44 @@ class UserListViewModel @Inject constructor(private val repo: UserDetailReposito
     }
 
     fun getUserDetails(
-        token: String,
-        dbHelper: DateBaseHelperImpl
+        token: String
     ): MutableLiveData<Resource<UserDetailsResponse>> {
-        var userResponse: UserDetailsResponse?
         val result = MutableLiveData<Resource<UserDetailsResponse>>()
         result.value = Resource.loading()
         viewModelScope.launch {
-            userResponse = repo.getDetails(token)?.data
-            val users = mutableListOf<User>()
-            val len = userResponse?.size
-            if (len != null)
-                for (i in 0 until len) {
-                    val user = userResponse?.get(i)?.let {
-                        User(
-                            it.id, it.first_name,
-                            it.last_name,
-                            it.image,
-                            it.mobile,
-                            it.user_bio,
-                            it.youtube_link,
-                            it.instagram_link
-                        )
-                    }
-                    if (user != null) {
-                        users.add(user)
-                    }
-                }
-            dbHelper.insertAll(users)
 
-                userDetailsResponse.postValue(users as ArrayList<User>)
-            fetchDataFromDb(dbHelper)
             result.postValue(repo.getDetails(token))
 
         }
         return result
     }
 
-
-    private fun fetchDataFromDb(dbHelper: DateBaseHelperImpl) {
+    fun fetchDataFromDb(dbHelper: DateBaseHelperImpl, userResponse: UserDetailsResponse) {
         viewModelScope.launch {
+            val users = mutableListOf<User>()
+            userResponse.forEach {
+                val user = User(
+                    it.id,
+                    it.first_name,
+                    it.last_name,
+                    it.image,
+                    it.mobile,
+                    it.user_bio,
+                    it.youtube_link,
+                    it.instagram_link
+                )
+                users.add(user)
+            }
+            dbHelper.deleteData()
+            dbHelper.insertAll(users)
             userDetailsFromDb.postValue(dbHelper.getUsers() as ArrayList<User>?)
+        }
+    }
+
+
+    fun updateDb(dbHelper: DateBaseHelperImpl, user: User) {
+        viewModelScope.launch {
+            dbHelper.updateUser(user)
         }
     }
 

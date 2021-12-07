@@ -1,5 +1,6 @@
 package com.example.asuserdetailsapp
 
+import com.example.asuserdetailsapp.view.LoginFragment
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -10,8 +11,12 @@ import org.junit.Assert.*
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 class ExampleUnitTest {
+
+
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    fun login_isValid() {
+        val myObjectUnderTest = LoginFragment()
+        val result = myObjectUnderTest.validate("demo@gmail.com", "123456")
+        assertEquals(true, result)
     }
 }

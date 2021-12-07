@@ -44,7 +44,7 @@ class ListViewAdapter(
         fun bind(item: User) {
             Glide.with(itemView.context)
                 .load(item.image)
-                .placeholder(R.drawable.progress_animation)
+                .placeholder(R.drawable.ic_default_dp)
                 .centerCrop()
                 .into(image)
             name.text =
